@@ -1,0 +1,14 @@
+@import '../assets/style/variable';
+@import '../assets/style/mixin';
+
+@include header('.div');
+
+div {
+  border: $border;
+  width: $width;
+  &.div1 {
+    height: 1000px / 2px;
+    border: $border;
+    @include li();
+  }
+}
