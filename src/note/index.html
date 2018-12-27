@@ -5,12 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <!-- <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script> -->
+  <script src="http://www.ajexoop.com/demo/DOMElementTest/js/createjs-2015.11.26.min.js"></script>
+  <style>
+    #canvas {
+      background: cyan;
+      position: absolute;
+    }
+  </style>
 </head>
 <body>
-  <script src="./1.js"></script>
+  <p id="testTxt" style="width: 100px; color: red;">this is a text for createjs</p>
+  <canvas id="canvas" height= "200" width= "200"></canvas>
   <script>
-    console.log('aa');
-    console.log($as, '$');
+    var canvas = document.getElementById("canvas");
+    canvas.alpha = 0;
+    var stage = new createjs.Stage(canvas);
+    var testTxt = document.getElementById("testTxt")
+    var domElement = new createjs.DOMElement(testTxt);
+    domElement.x = 200;
+    domElement.y = 200;
+    domElement.regX = 100;
+    domElement.regY = 100;
+    domElement.addEventListener("click", function (){
+        console.log("clicked")//就算加了容器点击也是无效的
+    })
+    stage.addChild(domElement);
+    createjs.Ticker.setFPS(60);
+    const ticker1 = createjs.Ticker.addEventListener("tick", function (){
+        domElement.rotation += 1;//使用容器操作一样可以
+        stage.update();
+        // stage.setPaused();
+    })
+    // createjs.CSSPlugin.install(); doesnot work cannot read property install
+
+    createjs.Tween.get(canvas).to({alpha: 1}, 2000).call(handleComplete);
+    // createjs.Tween.get(el).to({left: 1000}, 1000, createjs.Ease.linear).call(handleComplete);
+
+    // createjs.EventDispatcher.initialize(el);
+    // var listener = el.on("click", handleClick, null, false, {count:3});
+    // function handleClick(evt, data) {
+    //   console.log(data, evt);
+    // data.count -= 1;
+    // console.log('aaaaa'); // true——默认为调度范围
+    // if (data.count == 0) {
+    // alert("clicked 3 times!");
+    // myBtn.off("click", listener);
+    // // 替换: evt.remove();
+    // }
+    // }
+    // createjs.Tween.SamplePlugin.install();
+    // createjs.Tween.installPlugin(SamplePlugin, ["test"]);
+
+    // console.log(SamplePlugin, 'sample');
+
+    function handleComplete() {
+      //渐变完成执行
+      console.log(createjs, 'complete');
+    }
   </script>
 </body>
 </html>
