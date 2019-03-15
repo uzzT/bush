@@ -1,3 +1,9 @@
-<div>
-  app works
+<div class="wrapper">
+  <i class="prev" (click)="prev()">&lt;</i>
+  <i class="next" (click)="next()">&gt;</i>
+  <div class="container">
+    <ul [style.width.px]="arr.length*100">
+      <li *ngFor="let item of arr; let i = index;">{{i}}</li>
+    </ul>
+  </div>
 </div>
